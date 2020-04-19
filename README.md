@@ -1,4 +1,4 @@
-# hello-world-vue
+# challenge-time-tracker
 
 ## Project setup
 ```
