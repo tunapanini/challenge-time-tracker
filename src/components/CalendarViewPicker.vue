@@ -1,31 +1,55 @@
 <template>
   <div class="CalendarViewPicker-box">
     <div class="item-box" :class="{ active: isSelected(calendarViews.DAY) }">
-      <input id="calendar-view-day" type="radio" name="calendar-view" :value="calendarViews.DAY" v-model="selectedView">
+      <input id="calendar-view-day"
+             type="radio"
+             name="calendar-view"
+             :value="calendarViews.DAY"
+             v-model="calendarView">
       <label for="calendar-view-day">Day</label>
     </div>
     <div class="item-box" :class="{ active: isSelected(calendarViews.MONTH) }">
-      <input id="calendar-view-month" type="radio" name="calendar-view" :value="calendarViews.MONTH" v-model="selectedView">
+      <input id="calendar-view-month"
+             type="radio"
+             name="calendar-view"
+             :value="calendarViews.MONTH"
+             v-model="calendarView">
       <label for="calendar-view-month">Month</label>
     </div>
     <div class="item-box" :class="{ active: isSelected(calendarViews.WEEK) }">
-      <input id="calendar-view-week" type="radio" name="calendar-view" :value="calendarViews.WEEK" v-model="selectedView">
+      <input
+              id="calendar-view-week"
+              type="radio"
+              name="calendar-view"
+              :value="calendarViews.WEEK"
+              v-model="calendarView">
       <label for="calendar-view-week">Week</label>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
 import { CalendarView } from '@/models/CalendarView'
 
 @Component
 export default class CalendarViewPicker extends Vue {
   @Prop() private selectedView!: CalendarView;
+
+  @Watch('calendarView')
+  @Emit('update:selectedView')
+  onChange (val: string) {}
+
   private calendarViews = CalendarView;
 
+  data () {
+    return {
+      calendarView: this.selectedView
+    }
+  }
+
   isSelected (calendarView: CalendarView) {
-    return (calendarView === this.selectedView)
+    return (calendarView === this.$data.calendarView)
   }
 }
 </script>
