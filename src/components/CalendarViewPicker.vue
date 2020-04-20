@@ -6,7 +6,7 @@
              name="calendar-view"
              :value="calendarViews.DAY"
              v-model="calendarView">
-      <label for="calendar-view-day">Day</label>
+      <label for="calendar-view-day" class="unselectable clickable">Day</label>
     </div>
     <div class="item-box" :class="{ active: isSelected(calendarViews.MONTH) }">
       <input id="calendar-view-month"
@@ -14,7 +14,7 @@
              name="calendar-view"
              :value="calendarViews.MONTH"
              v-model="calendarView">
-      <label for="calendar-view-month">Month</label>
+      <label for="calendar-view-month" class="unselectable clickable">Month</label>
     </div>
     <div class="item-box" :class="{ active: isSelected(calendarViews.WEEK) }">
       <input
@@ -23,13 +23,14 @@
               name="calendar-view"
               :value="calendarViews.WEEK"
               v-model="calendarView">
-      <label for="calendar-view-week">Week</label>
+      <label for="calendar-view-week" class="unselectable clickable">Week</label>
     </div>
+    <div class="item-box select-box" :class="calendarView"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit, Watch, Ref } from 'vue-property-decorator'
 import { CalendarView } from '@/models/CalendarView'
 
 @Component
@@ -38,7 +39,9 @@ export default class CalendarViewPicker extends Vue {
 
   @Watch('calendarView')
   @Emit('update:selectedView')
-  onChange (val: string) {}
+  onChange (val: string) {
+
+  }
 
   private calendarViews = CalendarView;
 
@@ -60,35 +63,59 @@ export default class CalendarViewPicker extends Vue {
   *{
     font-family: 'Poppins', sans-serif;
   }
+  $width-item-box: 105px;
   .CalendarViewPicker-box {
-    width: 315px;
+    width: $width-item-box * 3;
     height: 36px;
     border-radius: 17px;
     background-color: #eff6ff;
+    position: relative;
   }
   .item-box {
     display: inline-flex;
-    width: 104px;
+    width: $width-item-box;
     height: 36px;
     border-radius: 17px;
-
-  }
-  input[type="radio"] {
-    display: none;
   }
   label {
+    z-index: 1;
     flex: 1;
     font-size: 14px;
     padding: 8px;
     text-align: center;
     color: #273142;
+    transition: ease-out 0.5s;
   }
-  .active {
-    &.item-box {
-      background-color: #538fff;
+  .active label {
+    color: #ffffff;
+  }
+  input[type="radio"] {
+    display: none;
+  }
+  .select-box {
+    z-index: 0;
+    position: absolute;
+    background-color: #538fff;
+    transition: ease-out 0.5s;
+    &.day {
+      left: 0;
     }
-    label {
-      color: #ffffff;
+    &.month {
+      left: $width-item-box;
     }
+    &.week {
+      left: $width-item-box * 2;
+    }
+  }
+  .unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .clickable {
+    cursor: pointer;
   }
 </style>
