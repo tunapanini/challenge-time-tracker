@@ -32,3 +32,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### CalendarViewPicker
+
+![Storybook with CalendarViewPicker](./assets/storybook-test.gif)
+
