@@ -30,31 +30,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit, Watch, Ref } from 'vue-property-decorator'
 import { CalendarView } from '@/models/CalendarView'
+import Vue from 'vue'
 
-@Component
-export default class CalendarViewPicker extends Vue {
-  @Prop() private selectedView!: CalendarView;
-
-  @Watch('calendarView')
-  @Emit('update:selectedView')
-  onChange (val: string) {
-
-  }
-
-  private calendarViews = CalendarView;
-
+export default Vue.extend({
+  props: {
+    selectedView: {
+      type: Object as () => CalendarView,
+      required: true
+    }
+  },
+  watch: {
+    calendarView (val: string) {
+      this.$emit('update:selectedView')
+    }
+  },
   data () {
     return {
-      calendarView: this.selectedView
+      calendarView: this.selectedView,
+      calendarViews: CalendarView
+    }
+  },
+  methods: {
+    isSelected (calendarView: CalendarView) {
+      return (calendarView === this.$data.calendarView)
     }
   }
-
-  isSelected (calendarView: CalendarView) {
-    return (calendarView === this.$data.calendarView)
-  }
-}
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
