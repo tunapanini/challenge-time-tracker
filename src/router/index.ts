@@ -6,7 +6,12 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: { name: 'expenses' }
+    redirect: { name: 'timesheets' }
+  },
+  {
+    path: '/timesheets',
+    name: 'timesheets',
+    component: () => import('../views/Timesheets.vue')
   },
   {
     path: '/expenses',
@@ -17,16 +22,11 @@ const routes = [
     path: '/management',
     name: 'management',
     component: () => import('../views/Management.vue')
-  },
-  {
-    path: '/timesheets',
-    name: 'timesheets',
-    component: () => import('../views/Timesheets.vue')
   }
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
-
 export default router
