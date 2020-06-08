@@ -28,6 +28,6 @@ const routes = [
 const router = new VueRouter({
   routes,
   mode: 'history',
-  base: process.env.NODE_ENV === 'production' ? '/challenge-timetracker-vue/' : '/'
+  base: process.env.VUE_APP_PUBLIC_PATH?.replace(/\/$/, '') || ''
 })
 export default router
