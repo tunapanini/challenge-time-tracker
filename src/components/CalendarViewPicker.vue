@@ -36,7 +36,7 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     selectedView: {
-      type: Object as () => CalendarView,
+      type: String, // CalendarView
       required: true
     }
   },

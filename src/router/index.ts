@@ -5,10 +5,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    redirect: { name: 'timesheets' }
-  },
-  {
     path: '/timesheets',
     name: 'timesheets',
     component: () => import('../views/Timesheets.vue')
@@ -22,6 +18,10 @@ const routes = [
     path: '/management',
     name: 'management',
     component: () => import('../views/Management.vue')
+  },
+  {
+    path: '*',
+    redirect: { name: 'timesheets' }
   }
 ]
 
