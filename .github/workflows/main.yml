@@ -21,8 +21,8 @@ jobs:
       - name: Build 🔧
         run: npm run build
         env:
+          BASE_URL: https://tunapanini.github.io/challenge-time-tracker-vue/
           VUE_APP_TITLE: challenge-time-tracker:Vue
-          VUE_APP_PUBLIC_PATH: /challenge-time-tracker-vue/
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
