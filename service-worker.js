@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.34e9fb876e9f19b5a64a66055152247b.js"
+  "/challenge-time-tracker-vue/precache-manifest.8caccd07ec6f20a052d98180a39612b7.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "hello-world-vue"});
