@@ -1,9 +1,12 @@
 <template>
   <nav class="wrapper">
-    <div class="links">
-      <NavLinkItem hrefLink="/timesheets" label="Timesheets" :active="pathname === '/timesheets'"/>
-      <NavLinkItem hrefLink="/expenses" label="Expenses" :active="pathname == '/expenses'"/>
-      <NavLinkItem hrefLink="/management" label="Management" :active="pathname == '/management'"/>
+    <div class="toggler" @click="toggleNavLinks()">
+      <md-icon >menu</md-icon>
+    </div>
+    <div class="links" :class="isOpen ? 'open': ''">
+      <NavLinkItem hrefLink="/timesheets" label="Timesheets" :active="pathname === '/timesheets'"  @click="toggleNavLinks(false)" />
+      <NavLinkItem hrefLink="/expenses" label="Expenses" :active="pathname == '/expenses'" @click="toggleNavLinks(false)" />
+      <NavLinkItem hrefLink="/management" label="Management" :active="pathname == '/management'" @click="toggleNavLinks(false)" />
     </div>
     <div class="right">
       <img class="alert" src alt>
@@ -19,16 +22,32 @@
   </nav>
 </template>
 
-<script lang="ts">
+<script>
+import Vue from 'vue'
+import { MdIcon } from 'vue-material/dist/components'
+import 'vue-material/dist/vue-material.min.css'
+
 import NavLinkItem from './NavLinkItem.vue'
+
+Vue.use(MdIcon)
 
 export default {
   name: 'NavigationBar',
   props: {
     pathname: String
   },
+  data () {
+    return {
+      isOpen: false
+    }
+  },
   components: {
     NavLinkItem
+  },
+  methods: {
+    toggleNavLinks (value = !this.isOpen) {
+      this.isOpen = value
+    }
   }
 }
 </script>
@@ -43,23 +62,30 @@ export default {
   align-items: center;
   box-shadow: 0 1px 2px 3px #eff6ff;
 }
-
-.links {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 70px;
+.toggler {
+  position: absolute;
+  left: 30px;
+  display: flex;
+  cursor: pointer;
 }
-
+.links {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 70px;
+  width: 100%;
+  background-color: #eff6ff;
+  &.open {
+    display: inline-flex;
+  }
+}
 .right {
   position: absolute;
   right: 0;
   margin: auto 0;
   display: flex;
   align-items: center;
-  .notification {
-    margin-right: 23px;
-  }
   .profile {
     display: flex;
     align-items: center;
@@ -67,14 +93,16 @@ export default {
     .avatar {
       width: 46px;
       height: 46px;
-      background-image: url("../assets/avatar.svg");
+      background-image: url('../assets/avatar.svg');
       margin-right: 10px;
     }
     .name {
+      padding-right: 1px;
       width: 103px;
       height: 17px;
       font-size: 12px;
       color: #273142;
+      white-space: nowrap;
     }
     .level {
       width: 82px;
@@ -87,18 +115,29 @@ export default {
     }
   }
 }
-
-.notification {
+.alert {
+  margin-right: 23px;
   width: 21px;
   height: 24px;
-  background-image: url("../assets/notification.svg");
+  background-image: url('../assets/notification.svg');
 }
-
 .arrow {
   width: 8px;
   height: 6px;
-  background-image: url("../assets/arrow.svg");
+  background-image: url('../assets/arrow.svg');
   background-repeat: no-repeat;
   margin: 4px 0 0 10px;
+}
+@media screen and (min-width: 768px) {
+  .toggler {
+    display: none;
+  }
+  .links{
+    flex-direction: row;
+    position: static;
+    height: 70px;
+    display: inline-flex;
+    background-color: transparent;
+  }
 }
 </style>

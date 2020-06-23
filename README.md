@@ -25,9 +25,15 @@ npm run test:unit
 npm run test:e2e
 ```
 
+
 ### Lints and fixes files
 ```
 npm run lint
+```
+
+### Update test snapshot results
+```
+npm run storyshot
 ```
 
 ### Customize configuration
