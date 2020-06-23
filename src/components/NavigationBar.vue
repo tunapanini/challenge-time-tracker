@@ -9,7 +9,6 @@
       <NavLinkItem hrefLink="/management" label="Management" :active="pathname == '/management'" @click="toggleNavLinks(false)" />
     </div>
     <div class="right">
-      <img class="alert" src alt>
       <div class="profile">
         <img class="avatar" src alt>
         <div class="info">
@@ -114,12 +113,6 @@ export default {
       font-size: 0;
     }
   }
-}
-.alert {
-  margin-right: 23px;
-  width: 21px;
-  height: 24px;
-  background-image: url('../assets/notification.svg');
 }
 .arrow {
   width: 8px;

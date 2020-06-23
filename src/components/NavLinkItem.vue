@@ -43,6 +43,7 @@ export default {
     font-weight: 500;
     text-align: center;
     color: #273142;
+    width: 100%;
     .active {
       width: 80px;
       height: 3px;
